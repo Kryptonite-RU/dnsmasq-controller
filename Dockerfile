@@ -19,6 +19,7 @@ COPY pkg/ pkg/
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -o dnsmasq-controller main.go
 
 FROM alpine:3.12
+RUN apk add --no-cache bind-tools
 RUN apk add --no-cache dnsmasq
 COPY --from=builder /workspace/dnsmasq-controller /dnsmasq-controller
 
